@@ -122,8 +122,8 @@ for m in l:
 	gn=0
 	yl=0
 	
-	for k in m[1]:			
-			x,y,z=img1[k[0],k[1]]
+	for k in m[3]:			
+			x,y,z=img1[k[2],k[3]]
 			
 			if(x>=0 and x<=40):
 				if(y>=0 and y<=40):
