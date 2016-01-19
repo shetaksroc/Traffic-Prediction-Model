@@ -3,6 +3,8 @@ import numpy as np
 import os.path
 import time
 
+
+
 img=cv2.imread("ny-kg.jpeg");
 
 #print(img[786,694])
