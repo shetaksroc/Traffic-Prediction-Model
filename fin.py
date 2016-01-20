@@ -2,11 +2,16 @@ import cv2
 import numpy as np
 import os.path
 import time
+import MySQLdb
+import csv
+import urllib2, urllib
 
 f=open('out.txt')
 lines=f.readlines()
 file=lines[7].strip()	
 img1=cv2.imread(file);
+date=file.split(".")[0];
+
 
 
 l=[
@@ -121,21 +126,22 @@ for m in l:
 	rd=0
 	gn=0
 	yl=0
-	
+	px=-1
 	for k in m[3]:			
 			x,y,z=img1[k[2],k[3]]
 			
 			if(x>=0 and x<=40):
 				if(y>=0 and y<=40):
 					if(z>=50 and z<=255):
-						rd+=1
+						#rd+=1
+						px=1
     
 
 			if(x>=60 and x<=150):
 				if(y>=100 and y<=255):
 					if(z>=0 and z<=175):
-						
-						gn+=1
+						px=2
+						#gn+=1
 			
 			
 			if(x>=0 and x<=59):
@@ -143,7 +149,8 @@ for m in l:
 					if(z>=176 and z<=255):
 						#if(m[0]=='bsk2silk'):
 						#	print k[0],k[1],x,y,z,'yellow'
-						yl+=1
+						#yl+=1
+						px=3
 	
 			else:
 				pass
@@ -151,7 +158,14 @@ for m in l:
 
 
 
-	print(m[0],rd,gn,yl)				
+	#print(m[1]," to ",m[2]," ",rd,gn,yl)		
+	mydata={'stid':m[1],'lat':k[0],'long':k[1],'y':k[2],'x':k[3],'src':m[0],'dest':m[1],'time':date,'pixel':px}   #The first is the var name the second is the value
+	mydata=urllib.urlencode(mydata)
+	path='http://manu1193.5gbfree.com:2082/insert2.php'   #the url you want to POST to
+	req=urllib2.Request(path, mydata)
+	req.add_header("Content-type", "application/x-www-form-urlencoded")
+	page=urllib2.urlopen(req).read()
+	print page
 
 cv2.waitKey(0)
 cv2.destroyAllWindows
