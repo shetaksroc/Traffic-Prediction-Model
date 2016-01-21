@@ -156,7 +156,7 @@ for m in l:
 
 
 	#print(m[1]," to ",m[2]," ",rd,gn,yl)		
-	mydata={'stid':m[1],'lat':k[0],'long':k[1],'y':k[2],'x':k[3],'src':m[0],'dest':m[1],'time':str,'pixel':px}   #The first is the var name the second is the value
+	mydata={'stid':m[1],'lat':k[0],'long':k[1],'y':k[2],'x':k[3],'src':m[0],'dest':m[1],'time':date,'pixel':px}   #The first is the var name the second is the value
 	mydata=urllib.urlencode(mydata)
 	path='http://manu1193.5gbfree.com:2082/insert2.php'   #the url you want to POST to
 	req=urllib2.Request(path, mydata)
