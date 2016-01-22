@@ -156,13 +156,10 @@ for m in l:
 
 
 	#print(m[1]," to ",m[2]," ",rd,gn,yl)		
-	mydata={'stid':m[1],'lat':k[0],'long':k[1],'y':k[2],'x':k[3],'src':m[0],'dest':m[1],'time':date,'pixel':px}   #The first is the var name the second is the value
-	mydata=urllib.urlencode(mydata)
-	path='http://manu1193.5gbfree.com:2082/insert2.php'   #the url you want to POST to
-	req=urllib2.Request(path, mydata)
-	req.add_header("Content-type", "application/x-www-form-urlencoded")
-	page=urllib2.urlopen(req).read()
-	print page
-
-cv2.waitKey(0)
-cv2.destroyAllWindows
+			mydata={'stid':m[1],'lat':k[0],'long':k[1],'y':k[2],'x':k[3],'src':m[0],'dest':m[1],'time':date,'pixel':px}   #The first is the var name the second is the value
+			mydata=urllib.urlencode(mydata)
+			path='http://tdapp.webuda.com/insert.php'   #the url you want to POST to
+			req=urllib2.Request(path, mydata)
+			req.add_header("Content-type", "application/x-www-form-urlencoded")
+			page=urllib2.urlopen(req).read()
+			print page
