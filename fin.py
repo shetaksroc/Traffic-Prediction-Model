@@ -8,9 +8,10 @@ import urllib2, urllib
 
 f=open('out.txt')
 lines=f.readlines()
-file=lines[7].strip()	
+file=lines[7].strip(' ').strip('\n')	
 img1=cv2.imread(file);
 date=file.split(".")[0];
+img1=cv2.imread(file);
 
 l=[
 [11,"nayandahalli","kengeri",
@@ -123,22 +124,40 @@ for m in l:
 	rd=0
 	gn=0
 	yl=0
-	px=-1
 	for k in m[3]:			
-			x,y,z=img1[k[2],k[3]]
-			
+			x,y,z=img1[k[3],k[2]]
+			flag=0
+			print 'hai'
 			if(x>=0 and x<=40):
 				if(y>=0 and y<=40):
 					if(z>=50 and z<=255):
 						#rd+=1
+						flag=1
 						px=1
+						
+						mydata={'stid':m[0],'lat':k[0],'long':k[1],'y':k[3],'x':k[2],'src':m[1],'dest':m[2],'time':date,'pixel':px}   #The first is the var name the second is the value
+						mydata=urllib.urlencode(mydata)
+						path='http://tdapp.webuda.com/insert.php'   #the url you want to POST to
+						req=urllib2.Request(path, mydata)
+						req.add_header("Content-type", "application/x-www-form-urlencoded")
+						page=urllib2.urlopen(req).read()
+						print page
     
 
 			if(x>=60 and x<=150):
 				if(y>=100 and y<=255):
 					if(z>=0 and z<=175):
 						px=2
-						#gn+=1
+						flag=1
+						
+
+						mydata={'stid':m[0],'lat':k[0],'long':k[1],'y':k[3],'x':k[2],'src':m[1],'dest':m[2],'time':date,'pixel':px}   #The first is the var name the second is the value
+						mydata=urllib.urlencode(mydata)
+						path='http://tdapp.webuda.com/insert.php'   #the url you want to POST to
+						req=urllib2.Request(path, mydata)
+						req.add_header("Content-type", "application/x-www-form-urlencoded")
+						page=urllib2.urlopen(req).read()
+						print page
 			
 			
 			if(x>=0 and x<=59):
@@ -148,18 +167,21 @@ for m in l:
 						#	print k[0],k[1],x,y,z,'yellow'
 						#yl+=1
 						px=3
+						flag=1
+				
+						mydata={'stid':m[0],'lat':k[0],'long':k[1],'y':k[3],'x':k[2],'src':m[1],'dest':m[2],'time':date,'pixel':px}   #The first is the var name the second is the value
+						mydata=urllib.urlencode(mydata)
+						path='http://tdapp.webuda.com/insert.php'   #the url you want to POST to
+						req=urllib2.Request(path, mydata)
+						req.add_header("Content-type", "application/x-www-form-urlencoded")
+						page=urllib2.urlopen(req).read()
+						print page
 	
-			else:
+			if(flag==0):
 				pass
-				#print i,j,x,y,z			
+				#print k[2],k[3],x,y,z			
 
 
 
 	#print(m[1]," to ",m[2]," ",rd,gn,yl)		
-			mydata={'stid':m[1],'lat':k[0],'long':k[1],'y':k[2],'x':k[3],'src':m[0],'dest':m[1],'time':date,'pixel':px}   #The first is the var name the second is the value
-			mydata=urllib.urlencode(mydata)
-			path='http://tdapp.webuda.com/insert.php'   #the url you want to POST to
-			req=urllib2.Request(path, mydata)
-			req.add_header("Content-type", "application/x-www-form-urlencoded")
-			page=urllib2.urlopen(req).read()
-			print page
+		
