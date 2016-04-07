@@ -6,12 +6,13 @@ import MySQLdb
 import csv
 import urllib2, urllib
 
-f=open('out.txt')
+'''f=open('out.txt')
 lines=f.readlines()
 file=lines[7].strip(' ').strip('\n')	
 img1=cv2.imread(file);
-date=file.split(".")[0];
-img1=cv2.imread(file);
+date=file.split(".")[0];'''
+date='2016-03-21'
+img1=cv2.imread('demo.jpeg');
 
 l=[
 [11,"nayandahalli","kengeri",
@@ -143,7 +144,7 @@ for m in l:
 						page=urllib2.urlopen(req).read()
 						print page
     
-
+						#green
 			if(x>=60 and x<=150):
 				if(y>=100 and y<=255):
 					if(z>=0 and z<=175):
